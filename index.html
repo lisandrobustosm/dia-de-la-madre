@@ -764,9 +764,43 @@
     }
 
     // Control de música
+    // Control de música
     const music = document.getElementById('backgroundMusic');
     const toggleBtn = document.getElementById('musicToggle');
     let isPlaying = false;
+    let musicStarted = false;
+
+    // Función para iniciar la música
+    function iniciarMusica() {
+        if (!musicStarted) {
+            music.play().then(function() {
+                isPlaying = true;
+                musicStarted = true;
+                toggleBtn.innerHTML = '⏸️ Pausar Música';
+                toggleBtn.style.background = 'linear-gradient(135deg, #00b894, #6ab04c)';
+            }).catch(function(err) {
+                console.log('Error al reproducir:', err);
+            });
+        }
+    }
+
+    // Intentar reproducir automáticamente al cargar
+    window.addEventListener('load', function() {
+        music.play().then(function() {
+            isPlaying = true;
+            musicStarted = true;
+            toggleBtn.innerHTML = '⏸️ Pausar Música';
+            toggleBtn.style.background = 'linear-gradient(135deg, #00b894, #6ab04c)';
+        }).catch(function(error) {
+            console.log('Reproducción automática bloqueada. Se iniciará con scroll o click.');
+        });
+    });
+
+    // Iniciar música al hacer scroll
+    window.addEventListener('scroll', iniciarMusica, { once: true });
+
+    // Iniciar música al hacer click (alternativa adicional)
+    document.body.addEventListener('click', iniciarMusica, { once: true });
 
     toggleBtn.addEventListener('click', function() {
         if (isPlaying) {
