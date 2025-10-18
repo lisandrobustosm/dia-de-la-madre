@@ -538,6 +538,17 @@
 <div class="jasmine-container" id="jasmines"></div>
 <div class="petals" id="petals"></div>
 
+<!-- Control de música -->
+<div style="position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 50px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+    <button id="musicToggle" style="background: linear-gradient(135deg, #6ab04c, #00b894); color: white; border: none; padding: 12px 24px; border-radius: 25px; cursor: pointer; font-size: 1em; font-weight: 600; transition: all 0.3s;">
+        🎵 Reproducir Música
+    </button>
+</div>
+
+<audio id="backgroundMusic" loop>
+    <source src="fotos/cancion.mp3" type="audio/mpeg">
+</audio>
+
 <div class="content">
     <section class="opening">
         <h1>Un Día de la Madre<br>Diferente</h1>
@@ -569,18 +580,16 @@
         <div class="distance-visual">
             <div class="person">
                 <div class="person-circle">
-                    <!-- Descomentá la línea de abajo y poné la ruta de la foto -->
-                   <img src="fotos/tuti.jpg" alt="tuti">
+                    <img src="fotos/tuti.jpg" alt="tuti">
                     👦
                 </div>
                 <div class="person-name">tuti</div>
-                <div class="person-message">"Aunque no esté ahí, pienso en vos todo el tiempo, mami"</div>
+                <div class="person-message">"Mami: sos la mejor mama del mundo espero que la pases hermoso y que estes siempre conmigo"</div>
             </div>
 
             <div class="person">
                 <div class="person-circle">
-                    <!-- Descomentá la línea de abajo y poné la ruta de la foto -->
-                   <img src="fotos/yesi2.jpeg" alt="Mamá">
+                    <img src="fotos/yesi2.jpeg" alt="Mamá">
                     🌸
                 </div>
                 <div class="person-name">Vos</div>
@@ -627,20 +636,19 @@
                 <div class="person-message">"Ya falta poco para estar en tus brazos mamá"</div>
             </div>
         </div>
-            <div class="baby-glow">✨</div>
-            <div class="verse">
-                Mientras tanto, esta nuestra hija creciendo dentro tuyo.<br>
-                Emma ya te conoce<br>
-                a través del latido de tu corazón,<br>
-                del ritmo de tu respiración,<br>
-                del amor a la sandia que tenes jajaja.
-            </div>
-            <div class="verse emphasis">
-                Como un jazmín en primavera,<br>
-                ella está floreciendo en vos.<br>
-                Y vos estás rodeada de amor,<br>
-                aunque hoy se sienta diferente.
-            </div>
+        <div class="baby-glow">✨</div>
+        <div class="verse">
+            Mientras tanto, esta nuestra hija creciendo dentro tuyo.<br>
+            Emma ya te conoce<br>
+            a través del latido de tu corazón,<br>
+            del ritmo de tu respiración,<br>
+            del amor a la sandia que tenes jajaja.
+        </div>
+        <div class="verse emphasis">
+            Como un jazmín en primavera,<br>
+            ella está floreciendo en vos.<br>
+            Y vos estás rodeada de amor,<br>
+            aunque hoy se sienta diferente.
         </div>
     </section>
 
@@ -653,7 +661,6 @@
 
         <div class="photo-gallery">
             <div class="photo-frame">
-                <!-- Reemplazá la ruta con tu foto -->
                 <img src="fotos/siquiman.jpeg" alt="siquiman">
                 <div class="photo-caption">Una de las tantas idas a siquiman</div>
             </div>
@@ -675,14 +682,6 @@
                 <img src="fotos/nono.jpeg" alt="nono">
                 <div class="photo-caption">Una perla en la piedra mas alta de nono</div>
             </div>
-
-            <!-- Podés agregar más fotos copiando este bloque:
-            <div class="photo-frame">
-                <img src="fotos/momento4.jpg" alt="Momento 4">
-                <img src="fotos/momento4.jpg" alt="Momento 4">
-                <div class="photo-caption">Descripción</div>
-            </div>
-            -->
         </div>
     </section>
 
@@ -763,6 +762,30 @@
         petal.style.animationDelay = Math.random() * 5 + 's';
         petalsContainer.appendChild(petal);
     }
+
+    // Control de música
+    const music = document.getElementById('backgroundMusic');
+    const toggleBtn = document.getElementById('musicToggle');
+    let isPlaying = false;
+
+    toggleBtn.addEventListener('click', function() {
+        if (isPlaying) {
+            music.pause();
+            toggleBtn.innerHTML = '🎵 Reproducir Música';
+            toggleBtn.style.background = 'linear-gradient(135deg, #6ab04c, #00b894)';
+        } else {
+            music.play().catch(function(error) {
+                console.log('Error al reproducir:', error);
+                alert('No se pudo reproducir la música. Asegúrate de que el archivo "fotos/cancion.mp3" existe.');
+            });
+            toggleBtn.innerHTML = '⏸️ Pausar Música';
+            toggleBtn.style.background = 'linear-gradient(135deg, #00b894, #6ab04c)';
+        }
+        isPlaying = !isPlaying;
+    });
+
+    // Ajustar volumen
+    music.volume = 0.3;
 </script>
 </body>
 </html>
